@@ -1,0 +1,20 @@
+export default  {
+    name:"siswa",
+    title:"siswa",
+    type:"document",
+    fields:[
+        { 
+            name:"nama",
+            title:"Nama",
+            type:"text"
+        },
+        {
+            name:"foto",
+            title:"Foto",
+            type:"image",
+            options:{
+                hotspot:true
+            }
+        }
+    ]
+}

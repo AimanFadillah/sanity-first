@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <ul id="container"></ul>
+
+    <script>
+      const projectID = 'x9uwc1zv'
+      const dataset = 'production'
+      const query = encodeURIComponent('*[_type == "siswa"]')
+      const URL = `https://${projectID}.api.sanity.io/v2021-10-21/data/query/${dataset}?query=${query}`
+      const container = document.querySelector('#container') 
+
+      main()
+
+      async function main() {
+        const response = await fetch(URL)
+        const result = await response.json()
+        console.log(result)
+        for (data of result.result) {
+            const ref = data.foto.asset._ref;
+            const fotoUrl = `https://cdn.sanity.io/images/${projectID}/${dataset}/${ref.split("-")[1]}-${ref.split("-")[2]}.${ref.split("-")[3]}`
+            container.innerHTML =
+            `
+                <li>
+                    <h1>${data.nama}</h1>
+                    <img src="${fotoUrl}" alt="${data.nama}">
+                </li>
+                ` + container.innerHTML
+        }
+      }
+    </script>
+  </body>
+</html>
